@@ -1,0 +1,38 @@
+\i C:/Users/aaver/Downloads/abc.sql
+\i C:/Users/aaver/Downloads/insertdb.sql
+
+Simple query 1
+
+select V.Views,T.TrendingID,T.VideoID 
+from Video as V,Trending as T 
+where V.VideoID=T.VideoID;
+
+Simple query 2
+
+select  U.UserID,U.Name, S.Sub_count 
+from Users as U , User_Details as S 
+where S.Sub_count>10000 AND U.UserID=S.UserID;
+
+
+
+Complex query 1
+
+Select V.CategoryID,C.Categoryname,count(*) 
+from Video as v, Category as C 
+where V.CategoryID=C.CategoryID 
+group by Categoryname,V.categoryID 
+having count(*)>3;
+
+
+Complex query 2
+
+select u.name,userid from 
+Users as u  
+where exists
+	(select * 
+	from Video 
+	 as V where v.UserID=u.userid) 
+	and exists
+	(select * 
+	from VideoComment as C 
+	where c.userid=u.userid);
